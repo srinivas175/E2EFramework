@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testConfigurations>	
+
+	<testConfig run="true">
+		<Application>SmileDC_Chrome</Application>		
+		<testcases>fe:PROVIDER</testcases>
+		<updateResultsinTestRail>False</updateResultsinTestRail>		
+		<URL>https://staging.smiledirectclub.com/</URL>
+		<browser>Chrome</browser>
+		<testDataSource>v3.14.25.0.xls</testDataSource>
+	</testConfig>		
+	
+</testConfigurations>

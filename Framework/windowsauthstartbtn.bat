@@ -1,0 +1,2 @@
+SET CLASSPATH=.
+java WindowsAuthrobot

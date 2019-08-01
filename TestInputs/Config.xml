@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testConfigurations>	
+
+	<testConfig run="true">
+		<Application>SmileDC_Chrome</Application>		
+		<testcases>21212121</testcases>
+		<updateResultsinTestRail>False</updateResultsinTestRail>		
+		<URL>http://127.0.0.1:8000/api/samples/bold/</URL>
+		<browser>Chrome</browser>
+		<deviceView>iPhone X</deviceView>
+		<testDataSource>SmileDC.xls</testDataSource>
+	</testConfig>		
+	
+</testConfigurations>
