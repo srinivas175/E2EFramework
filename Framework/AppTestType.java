@@ -17,12 +17,8 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.FileNotFoundException;
-import java.io.DataOutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -644,7 +640,6 @@ public class AppTestType {
 		String str = value;
 		String[] arrOfStr = str.split("_", 2);
 		String caseName = arrOfStr[0];
-		String stepNo = arrOfStr[1];
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		int minutes = calendar.get(Calendar.MINUTE);
 		try {		
@@ -657,82 +652,8 @@ public class AppTestType {
 			resultDetails.setFlag(false);
 			ex.printStackTrace();
 		}
-		
-		callCompareAPI(caseName, stepNo);
-		callImgSaveAPI();
+				
 	}
-	
-	private static HttpURLConnection con;
-	
-	private void callCompareAPI(String casename, String stepno) {
-		// call API
-
-        String url = "http://127.0.0.1:8000/api/upload/test_suite/";
-        String urlParameters = "step_no="+stepno+"&case_no="+casename;
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-
-        try {
-
-            URL myurl = new URL(url);
-            con = (HttpURLConnection) myurl.openConnection();
-
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", "Java client");
-            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-                wr.write(postData);
-            }
-
-            StringBuilder content;
-
-            try (BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()))) {
-
-                String line;
-                content = new StringBuilder();
-
-                while ((line = in.readLine()) != null) {
-                    content.append(line);
-                    content.append(System.lineSeparator());
-                }
-            }
-
-            System.out.println(content.toString());
-
-        }catch(Exception e)
-		{
-			System.out.println("Got an Error");
-		}finally {
-            
-            con.disconnect();
-        }
-    }
-	
-	private void callImgSaveAPI() {
-		// call API
-		try{
-			URL url = new URL("http://127.0.0.1:8000/api/upload/res_image/");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP Error code : "
-						+ conn.getResponseCode());
-			}
-			InputStreamReader in = new InputStreamReader(conn.getInputStream());
-			BufferedReader br = new BufferedReader(in);
-			String output;
-			while ((output = br.readLine()) != null) {
-				System.out.println(output);
-			}
-			conn.disconnect();
-		
-		} catch (Exception e) {
-		System.out.println("Exception in NetClientGet:- " + e);
-		}
-    }
 	
 	private void selectWithIndex(WebDriver webdriver, String fieldText, String value, String action, String fieldName) {
 		String obj = "";
@@ -772,7 +693,7 @@ public class AppTestType {
 	
 	private void ImageCompare() {
 		try {			
-			String command = "cmd /c python D:/GitHub/praveen/invoke.py";
+			String command = "cmd /c python C:/Users/srinivas.d/Desktop/praveen/invoke.py";
 			Process p = Runtime.getRuntime().exec(command);
 			p.waitFor();
 			BufferedReader brInputStream = new BufferedReader(new InputStreamReader(p.getInputStream()));
